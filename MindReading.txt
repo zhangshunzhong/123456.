@@ -1,0 +1,42 @@
+#include<stdio.h>
+int main()
+{
+	int i[7]={1,2,3,4,5,6,7};
+	int a,b,c,d;
+	printf("请问有你选的数字有4,5,6,7吗？有就按1没有按0\n");
+	scanf("%d",&a);
+	putchar('\n');
+	if(a!=1&&a!=0)
+	{
+		printf("输入错误，只能按1和0哦\n");
+	}
+	else
+	{
+		printf("请问你选的数字有2,3,6,7吗？有就按1没有按0\n");
+		scanf("%d",&b);
+		putchar('\n');
+		if(b!=1&&b!=0)
+		{
+			printf("都说了只能按1和0了嘛\n");
+		}
+		else
+		{
+            printf("请问你选的数字有1,3,5,7吗？\n");
+		    scanf("%d",&c);
+		    putchar('\n');
+		    if(c!=1&&c!=0)
+			{
+			printf("输入错误也,（无语，给你个眼神(￢︿￢)）\n");
+			}
+		    else
+			{
+            d=4*a+2*b+c;
+		    if(d=i[d-1])
+			{
+                printf("你想得是不是：%d （嘿嘿(●ˇˇ●)）\n",i[d-1]);
+			}
+			}
+		}
+	}
+	return 0;
+}
