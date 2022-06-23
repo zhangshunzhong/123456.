@@ -1,0 +1,1725 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<conio.h>
+#include<windows.h> 
+struct per           //定义结构体
+{
+	char name[30];
+	char ID[30];
+	int money;
+	char mima[7];
+	struct per * next; 
+};
+typedef struct per per; 
+per * head;//指向头结点的头指针
+per * tail;//指向尾结点的尾指针 
+typedef struct person    //定义另一结构体
+{
+	struct per kehu;
+	struct person *next;
+}L;
+void showMenuChinese();
+void showMenuEnglish();
+void date();
+void date1();
+void accountOpening(struct per *head); 
+void signIn(struct per *head);
+void billofFare(struct per *head);
+void drawMoney(struct per *head);
+void query(struct per *head);
+void transferAccounts(struct per *per);
+void changePassword(struct per *per);
+void depositMoney(struct per *per);
+void bowOut();
+void backgroundMenu(); 
+void establish(struct person **phead);
+void output(struct person *phead);
+void Query1(struct person *phead);
+void Query2(struct person *phead);
+void Query3(struct person *phead);
+void cutOff(struct person **phead);
+void increase(struct person **phead);
+void chaxun(struct per *head); 
+void kaihu(struct per *head);
+void denglu(struct per *head);
+void caidan(struct per *head);
+void qukuan(struct per *head);
+void xgmm(struct per *head);
+void cunkuan(struct per *head);
+void zhuanzhang(struct per *head);
+void chuangjian(struct person **Phead);
+void shuchu(struct person *Phead);
+void shanchu(struct person **Phead);
+void zengjia(struct person **Phead);
+void chaxun1(struct person *Phead);
+void chaxun2(struct person *Phead);
+void chaxun3(struct person *Phead);
+void tuichu();
+void menu(); 
+/*主函数*/
+int main()
+{
+	system("COLOR 0C");
+	printf("加载中......\n");
+	for(int i=0;i<6;i++)
+	{
+		printf(".");
+		Sleep(300);
+		printf(".");
+		Sleep(300);
+	}
+	putchar('\n');
+	printf("加载成功\n");
+	Sleep(1000);
+	system("cls"); 
+	int loading();
+	date();
+	printf("                                      /**********请选择你的语言**********/                    \n");
+	printf("                                    /*********Please select your language**********/          \n");
+	printf("\n");
+	printf("                                    Press 1, English Service\n");
+	printf("\n");
+	printf("                                    按2，中文服务\n");
+	int language;
+	scanf("%d",&language);
+	if(language==1)
+	{
+		showMenuEnglish(); //显示英文菜单 
+	}
+	if(language==2)
+	{
+		showMenuChinese(); //显示中文菜单 
+	}
+	return 0;
+}
+/*英文界面*/ 
+void showMenuEnglish()
+{
+	system("cls");
+	date1();
+	char x;
+	char choose; //choose为定义输入选择的变量
+	int flag=1;
+	struct person *Phead=NULL; //Phead为定义二层头指针
+	struct per *head=NULL;    //head为定义一层头指针
+	printf("				￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥\n");
+	printf("				￥￥欢Welcome to XiaoZhang ATM￥ \n");
+ 	printf("				￥￥￥￥￥￥￥￥￥￥￥￥￥￥  \n");
+	printf("				………………………………………\n");
+ 	printf("				$    1  Account opening               $ \n");
+    printf("				………………………………………\n");
+	printf("				$    2  Sign in                $\n");
+    printf("				……………………………………\n");
+ 	printf("				$    3  Front desk customer information inquiry Center$\n");
+    printf("				………………………………………\n");
+	printf("				$    4  Please select your needs       $ \n");
+    printf("				………………………………………\n");
+	scanf("%s",&x);
+ 	system("cls");
+	switch(x)
+ 	{
+ 		case '1':system("cls");
+        accountOpening(head);   //调用开户函数
+    	break;
+ 		case '2':system("cls");
+        signIn(head);   //调用登陆函数
+    	break;
+ 		case '3':system("cls");
+        backgroundMenu();   //调用后台菜单函数
+    	break;
+ 	}
+ 	while(flag)
+ 	{
+  		system("cls");
+  		backgroundMenu();       //调用后台菜单函数
+  		choose=getchar();
+  		switch(choose)
+  		{
+ 			case '1':establish(&Phead);
+    		output(Phead); //调用后台输出函数
+    		system("pause");
+    		system("cls");
+    		break;
+    		case '2':Query1(Phead); //调用后台卡号查询函数
+    		system("pause");
+    		system("cls");
+    		break;
+    		case '3':Query2(Phead); //调用后台姓名查询函数
+    		system("pause");
+    		system("cls");
+    		break;
+    		case '4':
+    		Query3(Phead); //调用后台余额查询函数
+     		system("pause");
+     		system("cls");
+     		break;
+     		case '5':cutOff(&Phead); //调用后台删除用户函数
+     		system("pause");
+     		system("cls");
+     		break;
+     		case '6':
+        	increase(&Phead); //调用后台增加用户函数
+     		system("pause");
+     		system("cls");
+     		break;
+     		case '7':output(Phead); //调用后台输出函数函数
+     		system("pause");
+     		system("cls");
+     		break;
+     		case '8':output(Phead); 
+    		system("pause");
+     		system("cls");
+     		break;
+     		case '0':flag=0;
+        	printf("The end.\n");
+     		break;
+    	}
+  	}
+}
+/*开户*/
+void accountOpening(struct per *head)
+{
+	printf("Loading page......\n");
+	for(int i=0;i<6;i++)
+	{
+		printf(".");
+		Sleep(300);
+		printf(".");
+		Sleep(300);
+	}
+	putchar('\n');
+	printf("Load successful\n");
+	Sleep(1000);
+	system("cls"); 
+	date1();
+	head=NULL;
+	FILE *fp;   //定义文件指针
+	struct per *p1=NULL,*p2=NULL;   //p1,p2为定义链表指针
+	p1=(struct per*)malloc(sizeof(struct per));  //开辟内存单元
+    printf("Please enter your name：\n");  //请数据输入链表中
+    scanf("%s",p1->name);
+	printf("Please set your card number：\n");
+	scanf("%s",p1->ID);
+	printf("Please set your bank card password：\n");
+	for(int i=0;i<6;i++)
+	{
+		p1->mima[i]=getch();
+		putchar('*'); 
+	}
+	p1->money=0;
+	p1->next=NULL;
+	printf("Your personal information is: ");
+    printf("Name：%s \nCard No：%s \nBalance：%4d\n",p1->name,p1->ID,p1->money);
+    if(NULL==head)           //为新用户开辟内存单元
+    {
+     	head=(struct per *)malloc(sizeof(struct per));
+     	head->next=p1;    //进行头插法，将其作为第一个节点
+    }
+    else    //为新增客户开辟内存单元
+    {
+     	for(p2=head;p2->next!=NULL;p2=p2->next); //进行尾插
+     	p2->next=p1;
+    }
+    if((fp=fopen("save.txt","ab+"))==NULL) //打开文件
+    {
+     	printf("cannot poen file\n");
+     	return;
+    }
+    if(fwrite(p1,sizeof(struct per),1,fp)!=1)  //将链表信息写入文件中
+     	printf("file write error\n");
+        fclose(fp);
+     	printf("\n");
+     	printf("Congratulations on your successful account opening, please log in\n");
+     	system("pause");
+     	system("cls");
+     	signIn(head);
+}
+/*登录账户*/
+void signIn(struct per *head)
+{
+	printf("Jumping to login page......\n");
+	for(int i=0;i<6;i++)
+	{
+		printf(".");
+		Sleep(300);
+		printf(".");
+		Sleep(300);
+	}
+	putchar('\n');
+	printf("Load successful\n");
+	Sleep(1000);
+	system("cls"); 
+	 date1();
+	 char d[20];
+	 char mima[20];
+	 int i,j;
+	 FILE *fp;     //定义文件指针
+	 struct per *p,*q=NULL;
+	 if((fp=fopen("save.txt","rb+"))==NULL)   //打开一个二进制文件，为读方式
+	 {
+	  	printf("Cannot open file!\n");   //如不能打开，则结束程序
+	 }
+	 p=(struct per*)malloc(sizeof(struct per));   //申请空间
+	 head=p;
+	 while(!feof(fp))       //循环读数据直到文件尾结束
+	 {
+	  if(1!=fread(p,sizeof(struct per),1,fp))
+	  break;   //如果没读到数据，跳出循环
+	  p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+	  q=p;  //保存当前节点的指针，作为下一结点的前驱
+	  p=p->next;  //指针后移，新读入数据链到当前表尾
+	  
+	 }
+	 q->next=NULL;  //最后一个结点的后继指针为空
+	 fclose(fp);
+	 printf("  **********************\n");
+	 printf("   Welcome to XiaoZhang bank   \n");
+	 printf("  **********************\n");
+	 for(j=1;j<4;j++)      //限制卡号输入的次数的循环
+	 {
+		printf("please enter your card number\n");
+	  	scanf("%s",d);
+	  for(q=head;q!=NULL;q=q->next)   //遍历链表
+	  {
+	  	if(strcmp(q->ID,d)!=0)  //核对账号
+	   	{
+	   		continue;   //跳出循环
+	   	}
+	    else
+	  {
+	   for(i=1;i<4;i++)   //限制密码输入的次数的循环
+	   {
+	   	 	printf("\n\nplease enter your password\n");
+	    	for(int i=0;i<6;i++)
+	 		{
+	 			mima[i]=getch();
+	 			putchar('*'); 
+	 		}
+	    	if(strcmp(q->mima,mima)==0)      //核对密码
+	   		{
+			     printf("The password is incorrect.Please re-enter the password\n");
+			     system("pause");
+			     system("cls");
+			     continue;    //若密码不对，跳出循环
+	   		 }	
+		    else
+		    {
+			    system("cls");
+			    billofFare(head);   //调用菜单函数
+		    }
+	   }
+	   printf("\n\n\nYou entered the password incorrectly three times .Please try again later!\n");
+	   system("pause");
+	   system("cls");
+	   exit(0);
+	  }
+	 }
+	 printf("\n\n\nThe card number you entered is incorrect.Please try again!\n");
+	 system("pause");
+	 system("cls");
+	}
+	printf("The card number you entered is wrong three times.Thank you for using it!\n");
+	exit(0);
+}
+/*银行菜单*/ 
+void billofFare(struct per *head)
+{
+	printf("One moment please......\n");
+	for(int i=0;i<6;i++)
+	{
+		printf(".");
+		Sleep(300);
+		printf(".");
+		Sleep(300);
+	}
+	putchar('\n');
+	printf("Load successful\n");
+	Sleep(1000);
+	system("cls"); 
+	date1();
+	head=NULL;
+	int i;      //i为客户选择输入的变量
+	while(1)
+	{	
+		printf("Please select the business you need\n");      //银行业务菜单
+		printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
+		printf("    1 Draw Money           2 Query\n");
+		printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
+		printf("    3 Transfer Accounts    4 Change Password  \n");
+		printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
+		printf("    5 Deposit              6 Card Return      \n");
+		printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
+		scanf("%d",&i);
+	  	if(i<6||i>0)
+	  	{
+	   		switch(i)
+	   		{
+	   			case 1:drawMoney(head);       //调用银行取款函数
+	          	system("pause");
+			    system("cls");
+			    break;
+	   			case 2:system("cls");
+	       		query(head);  //调用银行查询函数
+	        	break;
+	            case 3:system("cls");
+	      		transferAccounts(head);  //调用银行转账函数
+	       		break;
+	            case 4:system("cls");
+	       		changePassword(head);  //调用银行修改密码函数
+	       		break;
+	            case 5:system("cls");
+	       		depositMoney(head);  //调用银行存款函数
+	       		break;
+	            case 6:system("cls");
+	       		bowOut();  //调用银行退出函数
+	       		break;
+	   		}
+		}
+	  		else
+	  		{
+			   printf("Your input is incorrect!\n");
+			   system("pause");
+			   system("cls");
+	  		}
+	}
+}
+/*取款*/ 
+void drawMoney(struct per *head)
+{
+	date1();
+	head=NULL;   //head为链表头指针
+	int i;
+	FILE *fp;          //定义文件指针
+	struct per *p,*q=NULL;
+	if((fp=fopen("save.txt","rb+"))==NULL) //打开一个二进制文件，为读方式
+	{
+		printf("Cannot open file\n");  //如不能打开，则结束程序
+	}
+	p=(struct per*)malloc(sizeof(struct per));  //申请空间
+	head=p;
+	while(!feof(fp))   //循环读数据直到文件尾结束
+	{
+		if(1!=fread(p,sizeof(struct per),1,fp))
+		break;   //如果没有读到数据，跳出循环
+		p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+		q=p;   //保存当前结点的指针，作为下一个结点的前驱
+		p=p->next;  //指针后移，新读入数据链到当前表尾
+	}
+	q->next=NULL;  //最后一个结点的后继指针为空
+	fclose(fp);
+	system("cls");
+	printf("************************************\n");
+	printf("**  1: 1000yuan    *****    2:2000yuan  **\n");
+	printf("************************************\n");
+	printf("**  3: 3000yuan    *****    4:4000yuan  **\n");
+	printf("************************************\n");
+	printf("**  5: 5000yuan    *****    6:6000yuan  **\n");
+	printf("************************************\n");
+	printf("Please select the amount you want to withdraw as required\n");
+	scanf("%d",&i);
+	if(i>6||i<=0)    //限制输入范围
+	{
+		printf("Sorry,your input is incorrect\n\n");
+		return;
+	}
+	else
+	{
+		i=1000*i;  //对应选项乘以一千为取款金额
+		if(i>q->money)
+	    {
+		   printf("\n");
+		   system("pause");
+		   system("cls");
+		   billofFare(head);   //调用取款机菜单函数
+	    }
+	  	else
+	  	{
+		   q->money-=i;  //对金额进行处理
+		   if((fp=fopen("save.txt","wb+"))==NULL)  //打开文件
+	   		{
+			    printf("cannot open file\n");
+			    return;
+	   		}
+		   if(fwrite(q,sizeof(struct per),1,fp)!=1) //将修改的信息重新写入文件
+			printf("file write error\n");
+		   printf("You have successfully withdrawn the cash\n");
+		   q->next=NULL;
+		   fclose(fp);    //关闭文件
+		}	  
+	}
+}
+/*查询*/ 
+void query(struct per *head)
+{
+	date1();
+	head=NULL;  //链表头指针
+	FILE *fp;  //定义文件指针
+	struct per *p,*q=NULL;
+	if((fp=fopen("save.txt","rb+"))==NULL)  //打开一个二进制文件，为读方式
+	{
+		printf("Cannot open file\n");  //如不能打开，则结束程序
+	}
+	p=(struct per*)malloc(sizeof(struct per));   //申请空间
+	head=p;
+	while(!feof(fp))    //循环读数据直到文件尾结束
+	{
+		if(1!=fread(p,sizeof(struct per),1,fp))
+		break;    //如果没读到数据，跳出循环
+	  	p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+	  	q=p;   //保存当前结点的指针，作为下一个结点的前驱
+	  	p=p->next;   //指针后移，新读入数据链到当前表尾
+	}
+	q->next=NULL;   //最后一个结点的后继指针为空
+	fclose(fp);
+	printf("The original balance on your card is %dyuan\n\n",q->money);
+	system("pause");
+	system("cls");
+}
+/*转账*/ 
+void transferAccounts(struct per *per)
+{
+	date1();
+	head=NULL;
+	FILE *fp;  //定义文件指针
+	struct per *p,*q=NULL;
+	if((fp=fopen("save.txt","rb+"))==NULL)  //打开一个二进制文件，为读方式
+	{
+		printf("Cannot open file\n");  //如不能打开，则结束程序
+	}
+	p=(struct per*)malloc(sizeof(struct per));   //申请空间
+	head=p;
+	while(!feof(fp))    //循环读数据直到文件尾结束
+	{
+		if(1!=fread(p,sizeof(struct per),1,fp))
+		break;    //如果没读到数据，跳出循环
+		p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+	  	q=p;   //保存当前结点的指针，作为下一个结点的前驱
+	  	p=p->next;   //指针后移，新读入数据链到当前表尾
+	}
+	q->next=NULL;   //最后一个结点的后继指针为空
+	fclose(fp);
+	int i,j,k;
+	printf("Please enter the transfer account\n");
+	scanf("%d",&i);
+	printf("Please enter transfer account number again\n");   //核对卡号
+	scanf("%d",&j);
+	if(i!=j)
+	{
+	  	printf("The Two accounts are different,please re-enter\n");
+	  	transferAccounts(head);
+	}
+	else
+	{
+	 	system("cls");
+		printf("************************************\n");
+	    printf("**  1: 1000yuan    *****    2:2000yuan  **\n");
+	 	printf("************************************\n");
+	    printf("**  3: 3000yuan    *****    4:4000yuan  **\n");
+	 	printf("************************************\n");
+	    printf("**  5: 5000yuan    *****    6:6000yuan  **\n");
+	 	printf("************************************\n");
+	    printf("Please ebter the transfer amount\n");
+	 	scanf("%d",&k);
+	 	if(k>6||k<=0)
+	 	{
+	  		printf("Sorry,your input is incorrect\n\n");
+	  		return;
+	 	}
+		else
+		{
+	  		k=k*1000;
+	  		if(k>q->money)    //对余额进行判断
+	  		{
+		   		printf("Sorry,your baalance is insufficient\n");
+		   		system("pause");
+		   		system("cls");
+		   		billofFare(head);
+	  		}
+	  		else
+	  		{
+		   		printf("You have successfully transferred %dyuan\n",k);
+		   		q->money-=k;
+		   		if((fp=fopen("save.txt","wb+"))==NULL)
+		   		{
+		    		printf("cannot open file\n");
+		    		return;
+		   		}
+		   		if(fwrite(q,sizeof(per),1,fp)!=1)  //将数据重新写入文件
+		    	printf("file write error\n");
+		   		q->next=NULL;
+		   		fclose(fp);
+		   		system("pause");
+		   		system("cls");
+	  		}	
+		}
+	}
+}
+/*修改密码*/ 
+void changePassword(struct per *per)
+{
+	date1();
+	head=NULL;          //链表头指针
+	char mima[20];
+	FILE *fp;  //定义文件指针
+	struct per *p,*q=NULL;
+	if((fp=fopen("save.txt","rb+"))==NULL)  //打开一个二进制文件，为读方式
+	{
+		printf("Cannot open file\n");  //如不能打开，则结束程序
+	}
+	p=(struct per*)malloc(sizeof(struct per));   //申请空间
+	head=p;
+	while(!feof(fp))    //循环读数据直到文件尾结束
+	{
+		if(1!=fread(p,sizeof(struct per),1,fp))
+	   	break;    //如果没读到数据，跳出循环
+	  	p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+	  	q=p;   //保存当前结点的指针，作为下一个结点的前驱
+	  	p=p->next;   //指针后移，新读入数据链到当前表尾
+	}
+	q->next=NULL;   //最后一个结点的后继指针为空
+	fclose(fp);
+	printf("Please enter your original password\n");
+	scanf("%s",mima);
+	if(strcmp(q->mima,mima)!=0)   //核对密码
+	{
+	   printf("Correct password\n");
+	   printf("Please enter your new password:\n");
+	     for(int i=0;i<6;i++)
+	   {
+	   		q->mima[i]=getch();
+	   		putchar('*');
+	   }
+	   if((fp=fopen("save.txt","wb+"))==NULL)  //文件头指针
+	   {
+	    	printf("cannot open file\n");
+	   }
+	   	if(fwrite(q,sizeof(struct per),1,fp)!=1)    //将修改的密码重新写入文件
+		printf("file write error\n");
+	   	fclose(fp);
+	   	printf("Password modified successfully\n\n\n\n\n");
+	}
+	else
+	{
+	  	printf("The password you entered is differrent from the original password\n");
+	  	return;
+	  	system("pause");
+	}
+	q->next=NULL;
+}
+/*存款*/ 
+void depositMoney(struct per *per)
+{
+	date1();
+	int i;
+	head=NULL;   //链表头指针
+	FILE *fp;  //定义文件指针
+	struct per *p,*q=NULL;
+	if((fp=fopen("save.txt","rb+"))==NULL)  //打开一个二进制文件，为读方式
+	{
+		printf("Cannot open file\n");  //如不能打开，则结束程序
+	}
+	p=(struct per*)malloc(sizeof(struct per));   //申请空间
+	head=p;
+	while(!feof(fp))    //循环读数据直到文件尾结束
+	{
+		if(1!=fread(p,sizeof(struct per),1,fp))
+	   	break;    //如果没读到数据，跳出循环
+	  	p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+	  	q=p;   //保存当前结点的指针，作为下一个结点的前驱
+	  	p=p->next;   //指针后移，新读入数据链到当前表尾
+	}
+	q->next=NULL;   //最后一个结点的后继指针为空
+	fclose(fp);
+	system("cls");
+	printf("The original balance on your card %dyuan\n",q->money);   
+	printf("************************************\n");
+	printf("**  1: 1000yuan    *****    2:2000yuan  **\n");
+	printf("************************************\n");
+	printf("**  3: 3000yuan    *****    4:4000yuan  **\n");
+	printf("************************************\n");
+	printf("**  5: 5000yuan    *****    6:6000yuan  **\n");
+	printf("************************************\n");
+	printf("Please select the balance you want to deposit\n");
+	scanf("%d",&i);
+	if(i>6||i<=0)
+	{
+		printf("Sorry,your input is incorrect\n\n");
+	  	return;
+	}
+	else
+	{
+		i=1000*i;
+		q->money+=i;
+	  	if((fp=fopen("save.txt","wb+"))==NULL)   //打开文件
+	  	{
+	   		printf("cannot open file\n");
+	  	}
+	  	if(fwrite(q,sizeof(struct per),1,fp)!=1)  //将修改的密码重新写入文件
+	   	printf("file write error\n");
+	    printf("You have successfully accessed %dyuan\n",i);
+	   	q->next=NULL;
+	   	fclose(fp);
+	   	system("pause");
+	   	system("cls");
+	}
+}
+/*退出*/ 
+void bowOut()
+{
+	printf("Returning card......\n");
+	for(int i=0;i<6;i++)
+	{
+		printf(".");
+		Sleep(300);
+		printf(".");
+		Sleep(300);
+	}
+	putchar('\n');
+	Sleep(1000);
+	printf("Load successful thanks for using\n");
+	exit(0);
+}
+/*后台菜单*/
+void backgroundMenu()
+{
+	date1();
+	printf("****************Welcom to XiaoZhang banking system****************\n\n\n\n");
+	printf("**************************************************\n");
+	printf("**** 1 Create information and display  ******  2 Card number query information ****\n");
+	printf("**************************************************\n");
+	printf("**** 3 Name query information    ******  4 Balance query information ****\n");
+	printf("**************************************************\n");
+	printf("**** 5 Delete card number information  ******  6 Add new users ****\n");
+	printf("**************************************************\n");
+	printf("**** 7 Outut in descending balance order  ******  8 Output         ****\n");
+	printf("**************************************************\n");
+	printf("**** 0 Sign out             ******    Thank you for your coming     ****\n");
+	printf("**************************************************\n");
+	printf("Please select the business you need\n\n");
+}
+/*后台运行创建链表函数*/ 
+void establish(struct person **Phead)  //*(*Phead)为指向结构体指针的地址
+{
+	date1();
+	struct person *p,*t;    //定义操作指针
+	char n[20];
+	char a[20];
+	int s;
+	if(*Phead) *Phead=NULL;
+	printf("Please enter the card number name balance (To end, please enter three zeros)\n");
+	printf("Please enter the card number\n");
+	scanf("%s",n);
+	printf("Please enter your name\n");
+	scanf("%s",a);
+	printf("Please enter the deposit amount\n");
+	scanf("%d",&s);
+	if(s==0) return;
+	p=(L *)malloc(sizeof(L));     //将信息输入链表中
+	strcpy(p->kehu.ID,n);
+	strcpy(p->kehu.name,a);
+	*Phead=p;    //将指针重新指向头指针
+	printf("Please enter the card number\n");
+	scanf("%s",n);
+	printf("Please enter your name\n");
+	scanf("%s",a);
+	printf("Please enter the deposit amount\n");
+	scanf("%d",&s);
+	while(s)
+	{
+		t=p;      //将p的值赋给t,p又可以储存下一个结点
+	  	p=(L *)malloc(sizeof(L));   //为新结点开辟新的内存
+	    strcpy(p->kehu.ID,n);
+	    strcpy(p->kehu.name,a);
+	  	p->kehu.money=s;
+	  	p->next=NULL;
+	  	t->next=p;   //将p的值接在t(即上一个结点的后面)
+	    printf("Please enter the card number\n");  //尾插法
+	    scanf("%s",n);
+	    printf("Please enter your name\n");
+	    scanf("%s",a);
+	    printf("Please enter the deposit amount\n");
+	    scanf("%d",&s);
+	}
+}
+//后台运行输出链表函数/
+void output(struct person *Phead)
+{
+	date1();
+	printf("\n\n");
+	if(NULL==Phead)
+	{
+		printf("No customer information to output!\n");  //若头指针指向空，则没有客户信息
+	  	return;
+	}
+	while(Phead)  //遍历输出链表中所有客户信息
+	{
+		printf("Card number:%s\n name:\n balance:%d\n",Phead->kehu.ID,Phead->kehu.name,Phead->kehu.money);
+	  	Phead=Phead->next;
+	}
+	printf("\n\n");
+}
+ //后台运行卡号查询函数
+ ///
+ 
+void Query1(struct person*Phead)
+{
+	date1();
+	char m[20];   //定义输入查找客户卡号的变量
+	if(NULL==Phead)   //若头指针向空，则没有客户信息
+	{
+		printf("No customer information to query!\n");
+	 	return;
+	}
+	printf("Please enter the customer card number to query:\n");  
+	scanf("%s",m);
+	while(NULL!=Phead&&strcmp(Phead->kehu.ID,m)!=0)  //在链表中遍历寻找中，直到链表存在并且卡号核对无误
+	Phead=Phead->next;
+	if(Phead==NULL)  //若指针指最后指向空，则没有客户信息
+	printf("Sorry, there is no such user!\n");
+	else
+	printf("Card number:%s\n name:\n balance:%d\n",Phead->kehu.ID,Phead->kehu.name,Phead->kehu.money); 
+}    //若找到，则输出客户信息
+
+//后台运行姓名查询函数/
+void Query2(struct person *Phead)
+{
+	date1();
+	char m[20];   //定义输入查找客户卡号的变量
+	if(NULL==Phead)   //若头指针向空，则没有客户信息
+	{
+		printf("No customer information to query!\n");
+	 	return;
+	}
+	printf("Please enter the customer name to query:\n");  
+  	scanf("%s",m);
+	while(NULL!=Phead&&strcmp(Phead->kehu.name,m)!=0)  //在链表中遍历寻找中，直到链表存在并且姓名核对无误
+ 	Phead=Phead->next;
+	if(Phead==NULL)  //若指针指最后指向空，则没有客户信息
+  		printf("Sorry, there is no such user!\n");
+	else
+  		printf("Card number:%s\n name:\n balance:%d\n",Phead->kehu.ID,Phead->kehu.name,Phead->kehu.money); 
+}    //若找到，则输出客户信息
+ 
+ 
+//后台运行余额查询函数//
+ 
+void Query3(struct person *Phead)
+{
+	date1();
+	long x;   //定义输入查找客户余额的变量
+	if(NULL==Phead)   //若头指针向空，则没有客户信息
+	{
+		printf("No customer information to query!\n");
+		return;
+	}
+	printf("Please enter the balance of customer information to query:\n");  
+	scanf("%ld",&x);
+	while(NULL!=Phead&&Phead->kehu.money!=x)  //在链表中遍历寻找中，直到链表存在并且余额核对无误，继续寻找
+	Phead=Phead->next;
+	if(Phead==NULL)  //若指针指最后指向空，则没有客户信息
+		printf("Sorry, there is no such user!\n");
+	else
+		printf("The customer's information is\n");
+		printf("Card number:%s\n name:\n balance:%d\n",Phead->kehu.ID,Phead->kehu.name,Phead->kehu.money);
+}    //若找到，则输出客户信息
+ 
+//后台运行删除客户信息函数
+void cutOff(struct person **Phead)   //*(*Phead)为指向结构体指针的地址
+{
+	date1();
+	char k[20];    //定义输入查找客户姓名卡号的变量
+	struct person *p=*Phead,*t;
+	if(NULL==(*Phead))     //若指针最后指向空，则没有客户信息
+	{
+		printf("No customer information to delete!\n");
+		return;
+	}
+	printf("Please enter the customer card number to delete:\n");
+	scanf("%s",k);
+	if(p->kehu.ID==k)  //若第一个客户就是，则让头指针指向下一个结点
+	*Phead=(*Phead)->next,free(p);
+	else
+	{
+		while(NULL==p->next&&p->next->kehu.ID!=k)   //遍历寻找，核对客户卡号
+	   	p=p->next;   //当p->next没指向空，并且客户的卡号还没找到，则继续寻找
+	  	if(p->next==NULL)
+	   	printf("Sorry, there is no such customer!\n");
+	  	else
+	  	{
+	   		t=p->next;  //如果找到，则把p->next的值赋给t
+	   		p->next=p->next->next;
+	  	}
+	}
+}
+ 
+//后台运行增加用户信息函数
+ 
+void increase(struct person **Phead)  //*(*Phead) 为指向结构体指针的地址
+{
+	date1();
+	char n[20];   //定义输入增加客户卡号的变量
+	char a[20];   //定义输入增加客户姓名的变量
+	int s;
+	L *p,*t,*k;   //定义操作指针变量
+	printf("Please enter the customer information to insert\n");
+	printf("Please enter the card number\n");  //尾插法
+	scanf("%s",&n);
+	printf("Please enter your name\n");
+	scanf("%s",a);
+	printf("Please enter the deposit amount\n");
+	scanf("%d",&s);
+	p=(L *)malloc(sizeof(L));    //开辟空间
+	strcpy(p->kehu.ID,a);   //将新的客户信息写入链表
+	p->kehu.money=s;
+	strcpy(p->kehu.name,n);
+	if(NULL==(*Phead))   //如果是空链表，则把新客户信息作为第一个结点
+	{
+		*Phead=p;   //头插法
+	   	(*Phead)->next=NULL;
+	   	return ;
+	}
+	else
+	{
+		p->next=(*Phead);   //头插法
+	   	(*Phead)=p;
+	}
+}
+/*中文界面*/ 
+void showMenuChinese()
+{
+	system("cls");
+	date();
+	char x;
+	char choose; //choose为定义输入选择的变量
+	int flag=1;
+	struct person *Phead=NULL; //Phead为定义二层头指针
+	struct per *head=NULL;    //head为定义一层头指针
+	printf("				￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥\n");
+	printf("				￥￥欢迎欢迎来到小张自动ATM￥ \n");
+ 	printf("				￥￥￥￥￥￥￥￥￥￥￥￥￥￥  \n");
+	printf("				………………………………………\n");
+ 	printf("				$    1  开户                $ \n");
+    printf("				………………………………………\n");
+	printf("				$    2  登陆                $\n");
+    printf("				……………………………………\n");
+ 	printf("				$    3  前台客户信息查询中心$\n");
+    printf("				………………………………………\n");
+	printf("				$    4  请选择您的需求      $ \n");
+    printf("				………………………………………\n");
+	scanf("%s",&x);
+ 	system("cls");
+	switch(x)
+ 	{
+ 		case '1':system("cls");
+        kaihu(head);   //调用开户函数
+    	break;
+ 		case '2':system("cls");
+        denglu(head);   //调用登陆函数
+    	break;
+ 		case '3':system("cls");
+        menu();   //调用后台菜单函数
+    	break;
+ 	}
+ 	while(flag)
+ 	{
+  		system("cls");
+  		menu();       //调用后台菜单函数
+  		choose=getchar();
+  		switch(choose)
+  		{
+ 			case '1':chuangjian(&Phead);
+    		shuchu(Phead); //调用后台输出函数
+    		system("pause");
+    		system("cls");
+    		break;
+    		case '2':chaxun1(Phead); //调用后台卡号查询函数
+    		system("pause");
+    		system("cls");
+    		break;
+    		case '3':chaxun2(Phead); //调用后台姓名查询函数
+    		system("pause");
+    		system("cls");
+    		break;
+    		case '4':
+    		chaxun3(Phead); //调用后台余额查询函数
+     		system("pause");
+     		system("cls");
+     		break;
+     		case '5':shanchu(&Phead); //调用后台删除用户函数
+     		system("pause");
+     		system("cls");
+     		break;
+     		case '6':
+        	zengjia(&Phead); //调用后台增加用户函数
+     		system("pause");
+     		system("cls");
+     		break;
+     		case '7':shuchu(Phead); //调用后台输出函数函数
+     		system("pause");
+     		system("cls");
+     		break;
+     		case '8':shuchu(Phead); 
+    		system("pause");
+     		system("cls");
+     		break;
+     		case '0':flag=0;
+        	printf("The end.\n");
+     		break;
+    	}
+  	}
+}
+/*开户函数*/ 
+void kaihu(struct per *head)
+{
+	printf("正在加载页面......\n");
+	for(int i=0;i<6;i++)
+	{
+		printf(".");
+		Sleep(300);
+		printf(".");
+		Sleep(300);
+	}
+	putchar('\n');
+	printf("加载成功\n");
+	Sleep(1000);
+	system("cls"); 
+	date();
+	head=NULL;
+	FILE *fp;   //定义文件指针
+	struct per *p1=NULL,*p2=NULL;   //p1,p2为定义链表指针
+	p1=(struct per*)malloc(sizeof(struct per));  //开辟内存单元
+	p1->next=NULL;
+    printf("请输入您的姓名：\n");  //请数据输入链表中
+    scanf("%s",p1->name);
+	printf("请设置您的卡号：\n");
+	scanf("%s",p1->ID);
+	printf("请设置您银行卡密码：\n");
+	for(int i=0;i<6;i++)
+	{
+		p1->mima[i]=getch();
+		putchar('*');
+	}
+	p1->money=0;
+	p1->next=NULL;
+	printf("您的个人信息为");
+    printf("姓名：%s \n卡号：%s \n余额：%4d\n",p1->name,p1->ID,p1->money);
+    if(NULL==head)           //为新用户开辟内存单元
+    {
+     	head=(struct per *)malloc(sizeof(struct per));
+     	head->next=p1;    //进行头插法，将其作为第一个节点
+    }
+    else    //为新增客户开辟内存单元
+    {
+     	for(p2=head;p2->next!=NULL;p2=p2->next); //进行尾插
+     	p2->next=p1;
+    }
+    if((fp=fopen("save.txt","ab+"))==NULL) //打开文件
+    {
+     	printf("cannot poen file\n");
+     	return;
+    }
+    if(fwrite(p1,sizeof(struct per),1,fp)!=1)  //将链表信息写入文件中
+     	printf("file write error\n");
+        fclose(fp);
+     	printf("\n");
+     	printf("恭喜您开户成功，请登录\n");
+     	system("pause");
+     	system("cls");
+     	denglu(head);
+}
+ 
+ 
+//登陆函数
+
+void denglu(struct per *head)
+{
+	printf("正在跳转登录页面......\n");
+	for(int i=0;i<6;i++)
+	{
+		printf(".");
+		Sleep(300);
+		printf(".");
+		Sleep(300);
+	}
+	putchar('\n');
+	printf("加载成功\n");
+	Sleep(1000);
+	system("cls"); 
+	date();
+	char d[20];
+	char mima[7]="0";
+	int i,j;
+	FILE *fp;     //定义文件指针
+	struct per *p,*q=NULL;
+	if((fp=fopen("save.txt","rb+"))==NULL)   //打开一个二进制文件，为读方式
+	{
+    	printf("不能打开文件\n");   //如不能打开，则结束程序
+	}
+	p=(struct per*)malloc(sizeof(struct per));   //申请空间
+	head=p;
+	while(!feof(fp))       //循环读数据直到文件尾结束
+	{
+		if(1!=fread(p,sizeof(struct per),1,fp))
+		break;   //如果没读到数据，跳出循环
+		p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+		q=p;  //保存当前节点的指针，作为下一结点的前驱
+		p=p->next;  //指针后移，新读入数据链到当前表尾
+	  
+	}
+	q->next=NULL;  //最后一个结点的后继指针为空
+	fclose(fp);
+	printf("  **********************\n");
+	printf("  ***欢迎来到建设银行***\n");
+	printf("  **********************\n");
+	for(j=1;j<4;j++)      //限制卡号输入的次数的循环
+	{
+		printf("请输入您的卡号\n");
+	  	scanf("%s",d);
+	   for(q=head;q!=NULL;q=q->next)   //遍历链表
+	  {
+	  	if(strcmp(q->ID,d)==0)  //核对账号
+	   	{
+	   		continue;   //跳出循环
+	   	}
+	    else
+	   {
+	   		for(i=1;i<4;i++)   //限制密码输入的次数的循环
+	   {
+	   	 	printf("\n\n请输入您的密码\n");
+	    	for(int j=0;j<6;j++)
+	 		{
+	 			mima[j]=getch();
+	 			putchar('*'); 
+	 		}
+	    	if(strcmp(q->mima,mima)==0)      //核对密码
+	   		{
+			     printf("密码不正确。请重新输入密码\n");
+			     system("pause");
+			     system("cls");
+			     continue;    //若密码不对，跳出循环
+	   		}	
+		    else
+		    {
+			    system("cls");
+			    caidan(head);   //调用菜单函数
+		    }
+	   }
+	   printf("\n\n\n您输入密码三次错误，请稍后重试\n");
+	   system("pause");
+	   system("cls");
+	   exit(0);
+	  }
+	 }
+	  
+	 
+	 printf("\n\n\n您输入的卡号有误，请重试\n");
+	 system("pause");
+	 system("cls");
+	}
+	printf("您的卡号三次输入错误，谢谢使用\n");
+	exit(0);
+}
+//银行菜单函数/
+void caidan(struct per *head)
+{
+	printf("正在跳转页面......\n");
+	for(int i=0;i<6;i++)
+	{
+		printf(".");
+		Sleep(300);
+		printf(".");
+		Sleep(300);
+	}
+	putchar('\n');
+	printf("加载成功\n");
+	Sleep(1000);
+	system("cls"); 
+	head=NULL;
+	int i;      //i为客户选择输入的变量
+	while(1)
+	{
+		printf("请选择您需要的业务\n");      //银行业务菜单
+	  	printf("*********************************\n");
+	  	printf("**  1 取款   *****   2 查询    **\n");
+	  	printf("*********************************\n");
+	  	printf("**  3 转账   *****   4 修改密码**\n");
+	  	printf("*********************************\n");
+	  	printf("**  5 存款   *****   6 退出    **\n");
+	  	printf("*********************************\n");
+	  	scanf("%d",&i);
+	  	if(i<6||i>0)
+	  	{
+	   		switch(i)
+	   		{
+		   		case 1:qukuan(head);       //调用银行取款函数
+		        system("pause");
+		        system("cls");
+		        break;
+				case 2:system("cls");
+		        chaxun(head);  //调用银行查询函数
+		       	break;
+		        case 3:system("cls");
+		        zhuanzhang(head);  //调用银行转账函数
+		        break;
+		        case 4:system("cls");
+		        xgmm(head);  //调用银行修改密码函数
+		        break;
+		        case 5:system("cls");
+		        cunkuan(head);  //调用银行存款函数
+		        break;
+		        case 6:system("cls");
+		        tuichu();  //调用银行退出函数
+		        break;
+		   	}
+	   }
+	   else
+	   {
+		   printf("您的输入有误\n");
+		   system("pause");
+		   system("cls");
+	   }
+	}
+}
+ 
+ 
+//银行取款函数
+//
+void qukuan(struct per *head)
+{
+	date();
+	head=NULL;   //head为链表头指针
+	int i;
+	FILE *fp;          //定义文件指针
+	struct per *p,*q=NULL;
+	if((fp=fopen("save.txt","rb+"))==NULL) //打开一个二进制文件，为读方式
+	{
+		printf("不能打开文件\n");  //如不能打开，则结束程序
+	}
+	p=(struct per*)malloc(sizeof(struct per));  //申请空间
+	head=p;
+	while(!feof(fp))   //循环读数据直到文件尾结束
+	{
+		if(1!=fread(p,sizeof(struct per),1,fp))
+		break;   //如果没有读到数据，跳出循环
+		p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+		q=p;   //保存当前结点的指针，作为下一个结点的前驱
+		p=p->next;  //指针后移，新读入数据链到当前表尾
+	}
+	q->next=NULL;  //最后一个结点的后继指针为空
+	fclose(fp);
+	system("cls");
+	printf("************************************\n");
+	printf("**  1: 1000元    *****    2:2000元  **\n");
+	printf("************************************\n");
+	printf("**  3: 3000元    *****    4:4000元  **\n");
+	printf("************************************\n");
+	printf("**  5: 5000元    *****    6:6000元  **\n");
+	printf("************************************\n");
+	printf("请按要求选择您要取款的金额\n");
+	scanf("%d",&i);
+	if(i>6||i<=0)    //限制输入范围
+	{
+		printf("对不起，您的输入有误\n\n");
+		return;
+	}
+	else
+	{
+		i=1000*i;  //对应选项乘以一千为取款金额
+		if(i>q->money)
+	    {
+		   printf("对不起，您的金额不足\n");
+		   system("pause");
+		   system("cls");
+		   caidan(head);   //调用取款机菜单函数
+	    }
+	  	else
+	  	{
+		   q->money-=i;  //对金额进行处理
+		   if((fp=fopen("save.txt","wb+"))==NULL)  //打开文件
+	   		{
+			    printf("cannot open file\n");
+			    return;
+	   		}
+		   if(fwrite(q,sizeof(struct per),1,fp)!=1) //将修改的信息重新写入文件
+			printf("file write error\n");
+		   printf("您已经成功取走现金\n");
+		   q->next=NULL;
+		   fclose(fp);    //关闭文件
+		}	  
+	}
+}
+ 
+ 
+//银行转账函数//
+void zhuanzhang(struct per *head)
+{
+	date();
+	head=NULL;
+	FILE *fp;  //定义文件指针
+	struct per *p,*q=NULL;
+	if((fp=fopen("save.txt","rb+"))==NULL)  //打开一个二进制文件，为读方式
+	{
+		printf("不能打开文件\n");  //如不能打开，则结束程序
+	}
+	p=(struct per*)malloc(sizeof(struct per));   //申请空间
+	head=p;
+	while(!feof(fp))    //循环读数据直到文件尾结束
+	{
+		if(1!=fread(p,sizeof(struct per),1,fp))
+		break;    //如果没读到数据，跳出循环
+		p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+	  	q=p;   //保存当前结点的指针，作为下一个结点的前驱
+	  	p=p->next;   //指针后移，新读入数据链到当前表尾
+	}
+	q->next=NULL;   //最后一个结点的后继指针为空
+	fclose(fp);
+	int i,j,k;
+	printf("请输入帐号号码\n");
+	scanf("%d",&i);
+	printf("请再次输入帐号号码\n");   //核对卡号
+	scanf("%d",&j);
+	if(i!=j)
+	{
+	  	printf("两次账号不同，请重新输入\n");
+	  	zhuanzhang(head);
+	}
+	else
+	{
+	 	system("cls");
+		printf("************************************\n");
+	    printf("**  1: 100元    *****    2:200元  **\n");
+	 	printf("************************************\n");
+	    printf("**  3: 300元    *****    4:400元  **\n");
+	 	printf("************************************\n");
+	    printf("**  5: 500元    *****    6:600元  **\n");
+	 	printf("************************************\n");
+	    printf("请输入转账金额\n");
+	 	scanf("%d",&k);
+	 	if(k>6||k<=0)
+	 	{
+	  		printf("对不起，您的输入有误\n\n");
+	  		return;
+	 	}
+		else
+		{
+	  		k=k*100;
+	  		if(k>q->money)    //对余额进行判断
+	  		{
+		   		printf("对不起，您的余额不足\n");
+		   		system("pause");
+		   		system("cls");
+		   		caidan(head);
+	  		}
+	  		else
+	  		{
+		   		printf("您已成功转账%d元\n",k);
+		   		q->money-=k;
+		   		if((fp=fopen("save.txt","wb+"))==NULL)
+		   		{
+		    		printf("cannot open file\n");
+		    		return;
+		   		}
+		   		if(fwrite(q,sizeof(per),1,fp)!=1)  //将数据重新写入文件
+		    	printf("file write error\n");
+		   		q->next=NULL;
+		   		fclose(fp);
+		   		system("pause");
+		   		system("cls");
+	  		}	
+		}
+	}
+}
+//银行查询函数//
+void chaxun(struct per *head)
+{
+	date();
+	char str[3];
+	head=NULL;  //链表头指针
+	FILE *fp;  //定义文件指针
+	struct per *p,*q=NULL;
+	if((fp=fopen("save.txt","rb+"))==NULL)  //打开一个二进制文件，为读方式
+	{
+		printf("不能打开文件\n");  //如不能打开，则结束程序
+	}
+	p=(struct per*)malloc(sizeof(struct per));   //申请空间
+	head=p;
+	while(!feof(fp))    //循环读数据直到文件尾结束
+	{
+		if(1!=fread(p,sizeof(struct per),1,fp))
+		break;    //如果没读到数据，跳出循环
+	  	p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+	  	q=p;   //保存当前结点的指针，作为下一个结点的前驱
+	  	p=p->next;   //指针后移，新读入数据链到当前表尾
+	}
+	q->next=NULL;   //最后一个结点的后继指针为空
+	fclose(fp);
+	printf("您卡上原有余额%d元\n\n",q->money);
+	system("pause");
+	system("cls");
+}
+ 
+ 
+//银行修改密码函数
+//
+ 
+void xgmm(struct per *head)
+{
+	date();
+	head=NULL;          //链表头指针
+	char mima[20];
+	FILE *fp;  //定义文件指针
+	struct per *p,*q=NULL;
+	if((fp=fopen("save.txt","rb+"))==NULL)  //打开一个二进制文件，为读方式
+	{
+		printf("不能打开文件\n");  //如不能打开，则结束程序
+	}
+	p=(struct per*)malloc(sizeof(struct per));   //申请空间
+	head=p;
+	while(!feof(fp))    //循环读数据直到文件尾结束
+	{
+		if(1!=fread(p,sizeof(struct per),1,fp))
+	   	break;    //如果没读到数据，跳出循环
+	  	p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+	  	q=p;   //保存当前结点的指针，作为下一个结点的前驱
+	  	p=p->next;   //指针后移，新读入数据链到当前表尾
+	}
+	q->next=NULL;   //最后一个结点的后继指针为空
+	fclose(fp);
+	printf("请输入您的原密码\n");
+	scanf("%s",mima);
+	if(strcmp(q->mima,mima)!=0)   //核对密码
+	{
+	   printf("密码正确\n");
+	   printf("请输入您的新密码:\n");
+	   for(int i=0;i<6;i++)
+	   {
+	   		q->mima[i]=getch();
+	   		putchar('*');
+	   }
+	   if((fp=fopen("save.txt","wb+"))==NULL)  //文件头指针
+	   {
+	    	printf("cannot open file\n");
+	   }
+	   	if(fwrite(q,sizeof(struct per),1,fp)!=1)    //将修改的密码重新写入文件
+		printf("file write error\n");
+	   	fclose(fp);
+	   	printf("修改密码成功\n\n\n\n\n");
+	}
+	else
+	{
+	  	printf("您输入的密码与原密码不同\n");
+	  	return;
+	  	system("pause");
+	}
+	q->next=NULL;
+}
+ 
+//银行存款函数
+
+void cunkuan(struct per *head)
+{
+	date();
+	int i;
+	head=NULL;   //链表头指针
+	FILE *fp;  //定义文件指针
+	struct per *p,*q=NULL;
+	if((fp=fopen("save.txt","rb+"))==NULL)  //打开一个二进制文件，为读方式
+	{
+		printf("不能打开文件\n");  //如不能打开，则结束程序
+	}
+	p=(struct per*)malloc(sizeof(struct per));   //申请空间
+	head=p;
+	while(!feof(fp))    //循环读数据直到文件尾结束
+	{
+		if(1!=fread(p,sizeof(struct per),1,fp))
+	   	break;    //如果没读到数据，跳出循环
+	  	p->next=(struct per *)malloc(sizeof(struct per));  //为下一个结点申请空间
+	  	q=p;   //保存当前结点的指针，作为下一个结点的前驱
+	  	p=p->next;   //指针后移，新读入数据链到当前表尾
+	}
+	q->next=NULL;   //最后一个结点的后继指针为空
+	fclose(fp);
+	system("cls");
+	printf("您卡上原有余额%d元\n",q->money);   
+	printf("************************************\n");
+	printf("**  1: 1000元    *****    2:2000元  **\n");
+	printf("************************************\n");
+	printf("**  3: 3000元    *****    4:4000元  **\n");
+	printf("************************************\n");
+	printf("**  5: 5000元    *****    6:6000元  **\n");
+	printf("************************************\n");
+	printf("请选择您要存入的余额\n");
+	scanf("%d",&i);
+	if(i>6||i<=0)
+	{
+		printf("对不起，您的输入有误\n\n");
+	  	return;
+	}
+	else
+	{
+		i=1000*i;
+		q->money+=i;
+	  	if((fp=fopen("save.txt","wb+"))==NULL)   //打开文件
+	  	{
+	   		printf("cannot open file\n");
+	  	}
+	  	if(fwrite(q,sizeof(struct per),1,fp)!=1)  //将修改的密码重新写入文件
+	   	printf("file write error\n");
+	    printf("您已经成功存取%d元\n",i);
+	   	q->next=NULL;
+	   	fclose(fp);
+	   	system("pause");
+	   	system("cls");
+	}
+}
+//退出银行函数
+///
+void tuichu()
+{
+	printf("正在退出......\n");
+	for(int i=0;i<6;i++)
+	{
+		printf(".");
+		Sleep(300);
+		printf(".");
+		Sleep(300);
+	}
+	putchar('\n');
+	Sleep(1000);
+	printf("退出成功，谢谢使用\n");
+	exit(0);
+}
+ 
+//后台运行菜单函数
+void menu()
+{
+	date();
+	printf("****************欢迎来小张银行取款机系统****************\n\n\n\n");
+	printf("**************************************************\n");
+	printf("**** 1 建立信息并显示  ******  2 卡号查询信息 ****\n");
+	printf("**************************************************\n");
+	printf("**** 3 姓名查询信息    ******  4 余额查询信息 ****\n");
+	printf("**************************************************\n");
+	printf("**** 5 删除某卡号信息  ******  6 增加新的用户 ****\n");
+	printf("**************************************************\n");
+	printf("**** 7 按余额降序输出  ******  8 输出         ****\n");
+	printf("**************************************************\n");
+	printf("**** 0 退出            ******    谢谢光临     ****\n");
+	printf("**************************************************\n");
+	printf("请选择您需要的业务\n\n");
+}
+ 
+ 
+ 
+//后台运行创建链表函数
+ 
+void chuangjian(struct person **Phead)  //*(*Phead)为指向结构体指针的地址
+{
+	date();
+	struct person *p,*t;    //定义操作指针
+	char n[20];
+	char a[20];
+	int s;
+	if(*Phead) *Phead=NULL;
+	printf("请输入卡号 姓名 余额 （若要结束请输入三个为零）\n");
+	printf("请输入卡号\n");
+	scanf("%s",n);
+	printf("请输入姓名\n");
+	scanf("%s",a);
+	printf("请输入预存金额\n");
+	scanf("%d",&s);
+	if(s==0) return;
+	p=(L *)malloc(sizeof(L));     //将信息输入链表中
+	strcpy(p->kehu.ID,n);
+	strcpy(p->kehu.name,a);
+	*Phead=p;    //将指针重新指向头指针
+	printf("请输入卡号\n");
+	scanf("%s",n);
+	printf("请输入姓名\n");
+	scanf("%s",a);
+	printf("请输入预存金额\n");
+	scanf("%d",&s);
+	while(s)
+	{
+		t=p;      //将p的值赋给t,p又可以储存下一个结点
+	  	p=(L *)malloc(sizeof(L));   //为新结点开辟新的内存
+	    strcpy(p->kehu.ID,n);
+	    strcpy(p->kehu.name,a);
+	  	p->kehu.money=s;
+	  	p->next=NULL;
+	  	t->next=p;   //将p的值接在t(即上一个结点的后面)
+	    printf("请输入卡号\n");  //尾插法
+	    scanf("%s",n);
+	    printf("请输入姓名\n");
+	    scanf("%s",a);
+	    printf("请输入预存金额\n");
+	    scanf("%d",&s);
+	}
+}
+//后台运行输出链表函数/
+void shuchu(struct person *Phead)
+{
+	date();
+	printf("\n\n");
+	if(NULL==Phead)
+	{
+		printf("没有客户信息可输出！\n");  //若头指针指向空，则没有客户信息
+	  	return;
+	}
+	while(Phead)  //遍历输出链表中所有客户信息
+	{
+		printf("卡号:%s\n姓名:\n余额:%d\n",Phead->kehu.ID,Phead->kehu.name,Phead->kehu.money);
+	  	Phead=Phead->next;
+	}
+	printf("\n\n");
+}
+ 
+ 
+ //后台运行卡号查询函数
+ ///
+ 
+void chaxun1(struct person*Phead)
+{
+	date();
+	char m[20];   //定义输入查找客户卡号的变量
+	if(NULL==Phead)   //若头指针向空，则没有客户信息
+	{
+		printf("没有客户信息可查询！\n");
+	 	return;
+	}
+	printf("请输入要查询的客户卡号：\n");  
+	scanf("%s",m);
+	while(NULL!=Phead&&strcmp(Phead->kehu.ID,m)!=0)  //在链表中遍历寻找中，直到链表存在并且卡号核对无误
+	Phead=Phead->next;
+	if(Phead==NULL)  //若指针指最后指向空，则没有客户信息
+	printf("对不起，没有该用户！\n");
+	else
+	printf("卡号:%s\n姓名:\n余额:%d\n",Phead->kehu.ID,Phead->kehu.name,Phead->kehu.money); 
+}    //若找到，则输出客户信息
+ 
+ 
+ 
+//后台运行姓名查询函数/
+ 
+ 
+ 
+void chaxun2(struct person *Phead)
+{
+	date();
+	char m[20];   //定义输入查找客户卡号的变量
+	if(NULL==Phead)   //若头指针向空，则没有客户信息
+	{
+		printf("没有客户信息可查询！\n");
+	 	return;
+	}
+	printf("请输入要查询的客户姓名：\n");  
+  	scanf("%s",m);
+	while(NULL!=Phead&&strcmp(Phead->kehu.name,m)!=0)  //在链表中遍历寻找中，直到链表存在并且姓名核对无误
+ 	Phead=Phead->next;
+	if(Phead==NULL)  //若指针指最后指向空，则没有客户信息
+  		printf("对不起，没有该用户！\n");
+	else
+  		printf("卡号:%s\n姓名:\n余额:%d\n",Phead->kehu.ID,Phead->kehu.name,Phead->kehu.money); 
+}    //若找到，则输出客户信息
+ 
+ 
+//后台运行余额查询函数//
+ 
+void chaxun3(struct person *Phead)
+{
+	date();
+	long x;   //定义输入查找客户余额的变量
+	if(NULL==Phead)   //若头指针向空，则没有客户信息
+	{
+		printf("没有客户信息可查询！\n");
+		return;
+	}
+	printf("请输入要查询的客户信息的余额：\n");  
+	scanf("%ld",&x);
+	while(NULL!=Phead&&Phead->kehu.money!=x)  //在链表中遍历寻找中，直到链表存在并且余额核对无误，继续寻找
+	Phead=Phead->next;
+	if(Phead==NULL)  //若指针指最后指向空，则没有客户信息
+		printf("对不起，没有该用户！\n");
+	else
+		printf("该客户的信息为\n");
+		printf("卡号:%s\n姓名:\n余额:%d\n",Phead->kehu.ID,Phead->kehu.name,Phead->kehu.money);
+}    //若找到，则输出客户信息
+ 
+//后台运行删除客户信息函数
+void shanchu(struct person **Phead)   //*(*Phead)为指向结构体指针的地址
+{
+	date();
+	char k[20];    //定义输入查找客户姓名卡号的变量
+	struct person *p=*Phead,*t;
+	if(NULL==(*Phead))     //若指针最后指向空，则没有客户信息
+	{
+		printf("没有客户信息可删除！\n");
+		return;
+	}
+	printf("请输入要删除的客户卡号：\n");
+	scanf("%s",k);
+	if(p->kehu.ID==k)  //若第一个客户就是，则让头指针指向下一个结点
+	*Phead=(*Phead)->next,free(p);
+	else
+	{
+		while(NULL==p->next&&p->next->kehu.ID!=k)   //遍历寻找，核对客户卡号
+	   	p=p->next;   //当p->next没指向空，并且客户的卡号还没找到，则继续寻找
+	  	if(p->next==NULL)
+	   	printf("对不起，没有该客户！\n");
+	  	else
+	  	{
+	   		t=p->next;  //如果找到，则把p->next的值赋给t
+	   		p->next=p->next->next;
+	  	}
+	}
+}
+ 
+//后台运行增加用户信息函数
+ 
+void zengjia(struct person **Phead)  //*(*Phead) 为指向结构体指针的地址
+{
+	date();
+	char n[20];   //定义输入增加客户卡号的变量
+	char a[20];   //定义输入增加客户姓名的变量
+	int s;
+	L *p,*t,*k;   //定义操作指针变量
+	printf("请输入要插入的客户信息\n");
+	printf("请输入卡号\n");  //尾插法
+	scanf("%s",&n);
+	printf("请输入姓名\n");
+	scanf("%s",a);
+	printf("请输入预存金额\n");
+	scanf("%d",&s);
+	p=(L *)malloc(sizeof(L));    //开辟空间
+	strcpy(p->kehu.ID,a);   //将新的客户信息写入链表
+	p->kehu.money=s;
+	strcpy(p->kehu.name,n);
+	if(NULL==(*Phead))   //如果是空链表，则把新客户信息作为第一个结点
+	{
+		*Phead=p;   //头插法
+	   	(*Phead)->next=NULL;
+	   	return ;
+	}
+	else
+	{
+		p->next=(*Phead);   //头插法
+	   	(*Phead)=p;
+	}
+}
+//显示当前日期
+void date()
+{
+	printf("当前日期：");
+	system("date/t");
+	printf("当前时间：");
+	system("time/t"); 
+}
+//显示英文当前日期
+void date1()
+{
+	printf("Current Date：");
+	system("date/t");
+	printf("Current Time：");
+	system("time/t"); 
+}
